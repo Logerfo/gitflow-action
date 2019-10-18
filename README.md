@@ -1,3 +1,5 @@
+[![Dependencies Status](https://david-dm.org/logerfo/gitflow-action/dev-status.svg)](https://david-dm.org/logerfo/gitflow-action?type=dev)
+
 # Create a JavaScript Action using TypeScript
 
 Use this template to bootstrap the creation of a JavaScript action.:rocket:
