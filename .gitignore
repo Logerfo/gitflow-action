@@ -93,5 +93,3 @@ typings/
 .dynamodb/
 
 package-lock.json
-
-lib/

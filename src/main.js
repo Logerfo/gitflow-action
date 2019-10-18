@@ -6,16 +6,16 @@ const releaseBranch = getBranch("release");
 const devBranch = getBranch("dev");
 const masterBranch = getBranch("master");
 
-function getInput(name: string, fallback: string) {
+function getInput(name, fallback) {
     const input = core.getInput(name);
     return input || fallback;
 }
 
-function getBranch(name: string): string {
+function getBranch(name) {
     return getInput(name, name);
 }
 
-function getTarget(head: string): string | null {
+function getTarget(head) {
     switch (head) {
         case releaseBranch: return masterBranch;
         case masterBranch: return devBranch;
