@@ -1,24 +1,29 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "gitflow-action",
+  "version": "0.0.1",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "A GitHub Action that automatically creates, approves and merges pull requests from master to dev and from release to master.",
+  "keywords": [
+    "actions",
+    "gitflow"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Logerfo/gitflow-action.git"
+  },
+  "author": {
+    "email": "bruno@logerfo.tk",
+    "name": "Bruno Logerfo",
+    "url": "https://github.com/Logerfo"
+  },
+  "homepage": "https://github.com/gitflow-action",
+  "bugs": "https://github.com/gitflow-action/issues",
+  "license": "MIT",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
-  },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
-  "author": "YourNameOrOrganization",
-  "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.0.0"
   },
