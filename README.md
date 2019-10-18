@@ -113,3 +113,9 @@ uses: actions/typescript-action@v1
 with:
   milliseconds: 1000
 ```
+
+## Donate
+
+<img src="https://i.imgur.com/ndlBtuX.png" width="200">
+
+BTC: 1LoGErFoNzE1gCA5fzk6A82nV6iJdKssSZ
