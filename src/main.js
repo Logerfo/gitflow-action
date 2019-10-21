@@ -27,7 +27,7 @@ async function run() {
     const context = github.context,
         head = context.ref.substr(11),
         base = getTarget(head);
-    core.debug(context.payload);
+    core.debug(JSON.stringify(context.payload));
     if (!base) {
         core.info(`Branch ${head} is neither ${masterBranch} or ${releaseBranch}. Skipping...`);
         return;
@@ -45,7 +45,7 @@ async function run() {
         creationData = creationResponse.data,
         pull_number = creationData.number;
     core.info(`Pull request #${pull_number} created.`);
-    core.debug(creationData);
+    core.debug(JSON.stringify(creationData));
     const label = getInput("label", "gitflow"),
         labelsResponse = await client.issues.addLabels({
             issue_number: pull_number,
@@ -54,7 +54,7 @@ async function run() {
             repo
         });
     core.info(`Label ${label} added to #${pull_number}.`);
-    core.debug(labelsResponse.data);
+    core.debug(JSON.stringify(labelsResponse.data));
     const reviewResponse = await client.pulls.createReview({
         event: "APPROVE",
         owner,
@@ -62,14 +62,14 @@ async function run() {
         repo,
     });
     core.info(`Pull request #${pull_number} approved.`);
-    core.debug(reviewResponse.data);
+    core.debug(JSON.stringify(reviewResponse.data));
     const mergeResponse = await client.pulls.merge({
         owner,
         pull_number,
         repo,
     });
     core.info(`Pull request #${pull_number} merged.`);
-    core.debug(mergeResponse.data);
+    core.debug(JSON.stringify(mergeResponse.data));
 }
 
 run();
