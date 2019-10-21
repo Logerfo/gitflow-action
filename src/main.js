@@ -38,8 +38,13 @@ async function run() {
                 break;
 
             case "pull_request_review":
+                await pr(context.payload.pull_request.number);
+                break;
+
             case "check_run":
-                await pr();
+                context.payload.check_run.pull_requests.forEach(async function(element) {
+                    await pr(element.number);
+                });
                 break;
         }
     }
@@ -101,8 +106,7 @@ async function push() {
     await merge(pull_number);
 }
 
-async function pr() {
-    const pull_number = context.number;
+async function pr(pull_number) {
     if (auto_merge && context.payload.pull_request.labels.map(labelMap).includes(label)) {
         await merge(pull_number);
     }
