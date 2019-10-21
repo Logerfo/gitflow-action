@@ -55,14 +55,6 @@ async function run() {
         });
     core.info(`Label ${label} added to #${pull_number}.`);
     core.debug(JSON.stringify(labelsResponse.data));
-    const reviewResponse = await client.pulls.createReview({
-        event: "APPROVE",
-        owner,
-        pull_number,
-        repo,
-    });
-    core.info(`Pull request #${pull_number} approved.`);
-    core.debug(JSON.stringify(reviewResponse.data));
     const mergeResponse = await client.pulls.merge({
         owner,
         pull_number,
