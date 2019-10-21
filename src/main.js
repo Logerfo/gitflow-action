@@ -6,6 +6,7 @@ const token = core.getInput("github-token", { required: true }),
     devBranch = getBranch("dev"),
     masterBranch = getBranch("master"),
     label = getInput("label", "gitflow"),
+    auto_merge = getInput("auto-merge", "true") == "true",
     context = github.context,
     owner = context.repo.owner,
     repo = context.repo.repo,
@@ -96,24 +97,29 @@ async function push() {
 
 async function pr() {
     const pull_number = context.number;
-    if (context.payload.pull_request.labels.includes(label)) {
+    if (auto_merge && context.payload.pull_request.labels.includes(label)) {
         await merge(pull_number);
     }
 }
 
 async function merge(pull_number) {
-    try {
-        const mergeResponse = await client.pulls.merge({
-            owner,
-            pull_number,
-            repo,
-        });
-        core.info(`Pull request #${pull_number} merged.`);
-        core.debug(JSON.stringify(mergeResponse.data));
+    if (auto_merge) {
+        try {
+            const mergeResponse = await client.pulls.merge({
+                owner,
+                pull_number,
+                repo,
+            });
+            core.info(`Pull request #${pull_number} merged.`);
+            core.debug(JSON.stringify(mergeResponse.data));
+        }
+        catch (err) {
+            core.info("Merge failed.");
+            core.debug(err);
+        }
     }
-    catch (err) {
-        core.info("Merge failed.");
-        core.debug(err);
+    else {
+        core.info("Auto merge is disabled.");
     }
 }
 

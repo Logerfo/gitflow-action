@@ -29,8 +29,8 @@ All values are default.
 ```yml
 name: Gitflow
 on: 
-  - push # To create pull requests
-  - pull_request # To merge pull requests if not possible during the push run
+  - push # To create pull requests.
+  - pull_request # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
     
 jobs:
   build:
@@ -44,6 +44,7 @@ jobs:
         dev: dev
         master: master
         label: gitflow
+        auto-merge: true
 ```
 
 ### Auto update

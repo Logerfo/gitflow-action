@@ -22,6 +22,9 @@ inputs:
   label:
     description: The pull request label
     default: gitflow
+  auto-merge:
+    description: If true, will try to automatically merge the pull requests
+    default: true
 
 runs:
   using: 'node12'
