@@ -6,6 +6,20 @@ branding:
   icon: git-merge
   color: white
 
+inputs:
+  github-token:
+    description: The GITHUB_TOKEN secret
+    required: true
+  release:
+    description: The release branch
+    default: release
+  dev:
+    description: The dev branch
+    default: dev
+  master:
+    description: The master branch
+    default: master
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
