@@ -12,10 +12,10 @@ Create a file named `.github/workflows/gitflow.yml`.
 name: Gitflow
 on: 
   # To create pull requests.
-  - push 
+  push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
-  - pull_request_review
-  - check_run
+  pull_request_review:
+  check_run:
     types: [completed]
     
 jobs:
@@ -52,10 +52,10 @@ All values are default.
 name: Gitflow
 on: 
   # To create pull requests.
-  - push 
+  push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
-  - pull_request_review
-  - check_run
+  pull_request_review:
+  check_run:
     types: [completed]
 
 jobs:
