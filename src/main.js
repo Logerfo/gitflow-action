@@ -49,6 +49,10 @@ async function run() {
     }
 }
 
+function labelMap(label) {
+    return label.name;
+}
+
 async function push() {
     const head = context.ref.substr(11),
         base = getTarget(head);
@@ -67,9 +71,7 @@ async function push() {
         const data = pulls.data[0];
         pull_number = data.number;
         core.info(`Pull request already exists: #${pull_number}`);
-        const labels = data.labels.map(function(label) {
-            return label.name;
-        });
+        const labels = data.labels.map(labelMap);
         if (!labels.includes(label)) {
             core.info(`Pull request does not have the label ${label}. Skipping...`);
             return;
@@ -101,7 +103,7 @@ async function push() {
 
 async function pr() {
     const pull_number = context.number;
-    if (auto_merge && context.payload.pull_request.labels.includes(label)) {
+    if (auto_merge && context.payload.pull_request.labels.map(labelMap).includes(label)) {
         await merge(pull_number);
     }
 }
