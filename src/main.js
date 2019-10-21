@@ -56,11 +56,13 @@ async function push() {
     });
     let pull_number;
     if (pulls.data.length == 1) {
+        pull_number = data.number;
+        core.info(`Pull request already exists: #${pull_number}`);
         const data = pulls.data[0];
         if (!data.labels.includes(label)) {
+            core.info(`Pull request does not have the label ${label}. Skipping...`);
             return;
         }
-        pull_number = data.number;
     }
     else {
         const creationResponse = await client.pulls.create({
