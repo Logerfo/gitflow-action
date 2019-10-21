@@ -28,6 +28,7 @@ async function run() {
         head = context.ref,
         base = getTarget(head);
     if (!base) {
+        core.info(`Branch is neither ${masterBranch} or ${releaseBranch}. Skipping...`);
         return;
     }
     const owner = context.repo.owner,
@@ -42,23 +43,28 @@ async function run() {
         }),
         creationData = creationResponse.data,
         pull_number = creationData.number;
+    core.info(`Pull request #${pull_number} created.`);
+    const label = getInput("label", "gitflow");
     await client.issues.addLabels({
         issue_number: pull_number,
-        labels: [getInput("label", "gitflow")],
+        labels: [label],
         owner,
         repo
     });
+    core.info(`Label ${label} added to #${pull_number}.`);
     await client.pulls.createReview({
         event: "APPROVE",
         owner,
         pull_number,
         repo,
     });
+    core.info(`Pull request #${pull_number} approved.`);
     await client.pulls.merge({
         owner,
         pull_number,
         repo,
     });
+    core.info(`Pull request #${pull_number} merged.`);
 }
 
 run();
