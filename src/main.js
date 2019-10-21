@@ -96,13 +96,19 @@ async function pr() {
 }
 
 async function merge(pull_number) {
-    const mergeResponse = await client.pulls.merge({
-        owner,
-        pull_number,
-        repo,
-    });
-    core.info(`Pull request #${pull_number} merged.`);
-    core.debug(JSON.stringify(mergeResponse.data));
+    try {
+        const mergeResponse = await client.pulls.merge({
+            owner,
+            pull_number,
+            repo,
+        });
+        core.info(`Pull request #${pull_number} merged.`);
+        core.debug(JSON.stringify(mergeResponse.data));
+    }
+    catch (err) {
+        core.info("Merge failed.");
+        core.debug(err);
+    }
 }
 
 run();
