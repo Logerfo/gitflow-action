@@ -25,7 +25,25 @@ jobs:
     steps:
     - uses: Logerfo/gitflow-action@0.0.1
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+```
+
+### Disabled auto merge
+```yml
+name: Gitflow
+on: 
+  # To create pull requests.
+  - push 
+
+jobs:
+  build:
+    name: Gitflow
+    runs-on: ubuntu-16.04
+    steps:
+    - uses: Logerfo/gitflow-action@0.0.1
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+        auto-merge: false # If `true`, will try to automatically merge the pull requests.
 ```
 
 ### Complete configuration
@@ -39,7 +57,7 @@ on:
   - pull_request_review
   - check_run
     types: [completed]
-    
+
 jobs:
   build:
     name: Gitflow
@@ -47,12 +65,12 @@ jobs:
     steps:
     - uses: Logerfo/gitflow-action@0.0.1
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
-        release: release
-        dev: dev
-        master: master
-        label: gitflow
-        auto-merge: true
+        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+        release: release # The `release` branch.
+        dev: dev # The `dev` branch.
+        master: master # The `master` branch.
+        label: gitflow # The pull request label.
+        auto-merge: true # If `true`, will try to automatically merge the pull requests.
 ```
 
 ### Auto update
