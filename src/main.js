@@ -48,25 +48,41 @@ async function push() {
         core.info(`Branch ${head} is neither ${masterBranch} or ${releaseBranch}. Skipping...`);
         return;
     }
-    const creationResponse = await client.pulls.create({
+    const pulls = await client.pulls.list({
         base,
-        head,
         owner,
         repo,
-        title: `${head} -> ${base}`,
-    }),
-        creationData = creationResponse.data,
-        pull_number = creationData.number;
-    core.info(`Pull request #${pull_number} created.`);
-    core.debug(JSON.stringify(creationData));
-    const labelsResponse = await client.issues.addLabels({
-        issue_number: pull_number,
-        labels: [label],
-        owner,
-        repo
+        state: "open",
     });
-    core.info(`Label ${label} added to #${pull_number}.`);
-    core.debug(JSON.stringify(labelsResponse.data));
+    let pull_number;
+    if (pulls.data.length == 1) {
+        const data = pulls.data[0];
+        if (data.labels.includes(label)) {
+            return;
+        }
+        pull_number = data.number;
+    }
+    else {
+        const creationResponse = await client.pulls.create({
+            base,
+            head,
+            owner,
+            repo,
+            title: `${head} -> ${base}`,
+        }),
+            creationData = creationResponse.data;
+        pull_number = creationData.number;
+        core.info(`Pull request #${pull_number} created.`);
+        core.debug(JSON.stringify(creationData));
+        const labelsResponse = await client.issues.addLabels({
+            issue_number: pull_number,
+            labels: [label],
+            owner,
+            repo
+        });
+        core.info(`Label ${label} added to #${pull_number}.`);
+        core.debug(JSON.stringify(labelsResponse.data));
+    }
     await merge(pull_number);
 }
 
