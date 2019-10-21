@@ -1,21 +1,21 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
+import core from "@actions/core";
+import github from "@actions/github";
 
 const token = core.getInput("github-token", { required: true });
 const releaseBranch = getBranch("release");
 const devBranch = getBranch("dev");
 const masterBranch = getBranch("master");
 
-function getInput(name, fallback) {
+function getInput(name: string, fallback: string): string {
     const input = core.getInput(name);
     return input || fallback;
 }
 
-function getBranch(name) {
+function getBranch(name: string): string {
     return getInput(name, name);
 }
 
-function getTarget(head) {
+function getTarget(head: string): string | null {
     switch (head) {
         case releaseBranch: return masterBranch;
         case masterBranch: return devBranch;
