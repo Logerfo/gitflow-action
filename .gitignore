@@ -66,3 +66,5 @@ typings/
 .next
 
 package-lock.json
+
+/dist
