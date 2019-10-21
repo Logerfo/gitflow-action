@@ -25,7 +25,7 @@ function getTarget(head) {
 
 async function run() {
     const context = github.context,
-        head = context.ref,
+        head = context.ref.substr(11),
         base = getTarget(head);
     core.debug(context.payload);
     if (!base) {
