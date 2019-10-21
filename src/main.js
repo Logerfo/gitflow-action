@@ -28,7 +28,7 @@ async function run() {
         head = context.ref,
         base = getTarget(head);
     if (!base) {
-        core.info(`Branch is neither ${masterBranch} or ${releaseBranch}. Skipping...`);
+        core.info(`Branch ${head} is neither ${masterBranch} or ${releaseBranch}. Skipping...`);
         return;
     }
     const owner = context.repo.owner,
