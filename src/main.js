@@ -57,7 +57,7 @@ async function push() {
     let pull_number;
     if (pulls.data.length == 1) {
         const data = pulls.data[0];
-        if (data.labels.includes(label)) {
+        if (!data.labels.includes(label)) {
             return;
         }
         pull_number = data.number;
