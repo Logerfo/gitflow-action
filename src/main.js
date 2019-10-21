@@ -66,7 +66,10 @@ async function push() {
         const data = pulls.data[0];
         pull_number = data.number;
         core.info(`Pull request already exists: #${pull_number}`);
-        if (!data.labels.includes(label)) {
+        const labels = data.labels.map(function(label) {
+            return label.name;
+        });
+        if (!labels.includes(label)) {
             core.info(`Pull request does not have the label ${label}. Skipping...`);
             return;
         }
