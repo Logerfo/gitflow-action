@@ -1,7 +1,7 @@
 [![Dependencies Status](https://david-dm.org/logerfo/gitflow-action/dev-status.svg)](https://david-dm.org/logerfo/gitflow-action?type=dev)
 
 # Gitflow Action
-This action will automatically merge your master branch into your dev branch and your release branch into your master branch through the creation of pull requests that will be automatically merged, if possible.  
+This action will automatically merge your `master` branch into `dev` and `release` into `master` through the creation of pull requests that will be automatically merged, if possible.  
 Those pull requests will be identified by a label named `gitflow` as default.
 
 ## Setting up
@@ -11,8 +11,8 @@ Create a file named `.github/workflows/gitflow.yml`.
 ```yml
 name: Gitflow
 on: 
-  - push # To create pull requests
-  - pull_request # To merge pull requests if not possible during the push run
+  - push # To create pull requests.
+  - pull_request # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
     
 jobs:
   build:

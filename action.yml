@@ -1,5 +1,5 @@
 name: gitflow-action
-description: Automatically creates and merges pull requests from master to dev and from release to master.
+description: Automatically creates and merges pull requests from `master` to `dev` and from `release` to `master`.
 author: Bruno Logerfo
 
 branding:
@@ -8,22 +8,22 @@ branding:
 
 inputs:
   github-token:
-    description: The GITHUB_TOKEN secret
+    description: The `GITHUB_TOKEN` secret.
     required: true
   release:
-    description: The release branch
+    description: The `release` branch.
     default: release
   dev:
-    description: The dev branch
+    description: The `dev` branch.
     default: dev
   master:
-    description: The master branch
+    description: The `master` branch.
     default: master
   label:
-    description: The pull request label
+    description: The pull request label.
     default: gitflow
   auto-merge:
-    description: If true, will try to automatically merge the pull requests
+    description: If `true`, will try to automatically merge the pull requests.
     default: true
 
 runs:
