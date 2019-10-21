@@ -72,7 +72,7 @@ async function push() {
 
 async function pr() {
     const pull_number = context.number;
-    if (context.pull_request.labels.includes(label)) {
+    if (context.payload.pull_request.labels.includes(label)) {
         await merge(pull_number);
     }
 }
