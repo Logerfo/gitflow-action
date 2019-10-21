@@ -8,4 +8,4 @@ branding:
 
 runs:
   using: 'node12'
-  main: 'src/main.js'
+  main: 'dist/index.js'

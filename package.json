@@ -19,8 +19,9 @@
   "homepage": "https://github.com/gitflow-action",
   "bugs": "https://github.com/gitflow-action/issues",
   "license": "MIT",
-  "main": "scr/main.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "ncc build src/main.js",
     "lint": "eslint src/main.js"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@actions/github": "^1.1.0"
   },
   "devDependencies": {
-    "eslint": "^6.3.0"
+    "eslint": "^6.3.0",
+    "@zeit/ncc": "^0.20.5"
   }
 }
