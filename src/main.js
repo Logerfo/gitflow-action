@@ -2,14 +2,14 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 const token = core.getInput("github-token", { required: true }),
-    client = new github.GitHub(token),
     releaseBranch = getBranch("release"),
     devBranch = getBranch("dev"),
     masterBranch = getBranch("master"),
     label = getInput("label", "gitflow"),
     context = github.context,
     owner = context.repo.owner,
-    repo = context.repo.repo;
+    repo = context.repo.repo,
+    client = new github.GitHub(token);
 
 function getInput(name, fallback) {
     const input = core.getInput(name);
