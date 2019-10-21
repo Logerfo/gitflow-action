@@ -2,7 +2,7 @@
   "name": "gitflow-action",
   "version": "0.0.1",
   "private": true,
-  "description": "A GitHub Action that automatically creates, approves and merges pull requests from master to dev and from release to master.",
+  "description": "A GitHub Action that automatically creates and merges pull requests from master to dev and from release to master.",
   "keywords": [
     "actions",
     "gitflow"

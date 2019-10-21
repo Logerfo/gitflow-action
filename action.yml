@@ -1,5 +1,5 @@
 name: gitflow-action
-description: Automatically creates, approves and merges pull requests from master to dev and from release to master.
+description: Automatically creates and merges pull requests from master to dev and from release to master.
 author: Bruno Logerfo
 
 branding:
