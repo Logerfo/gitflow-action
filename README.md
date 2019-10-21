@@ -12,7 +12,7 @@ Create a file named `.github/workflows/gitflow.yml`.
 name: Gitflow
 on: 
   - push # To create pull requests.
-  - pull_request # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
+  - pull_request_review # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
     
 jobs:
   build:
@@ -30,7 +30,7 @@ All values are default.
 name: Gitflow
 on: 
   - push # To create pull requests.
-  - pull_request # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
+  - pull_request_review # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
     
 jobs:
   build:

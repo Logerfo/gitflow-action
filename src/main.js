@@ -37,7 +37,7 @@ async function run() {
                 await push();
                 break;
 
-            case "pull_request":
+            case "pull_request_review":
                 await pr();
                 break;
         }
