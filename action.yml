@@ -19,6 +19,9 @@ inputs:
   master:
     description: The master branch
     default: master
+  label:
+    description: The pull request label
+    default: workflow
 
 runs:
   using: 'node12'
