@@ -1,7 +1,7 @@
 [![Dependencies Status](https://david-dm.org/logerfo/gitflow-action/dev-status.svg)](https://david-dm.org/logerfo/gitflow-action?type=dev)
 
 # Gitflow Action
-This action will automatically merge your `master` branch into `dev` and `release` into `master` through the creation of pull requests that will be automatically merged, if possible.  
+This action will automatically merge your `master` branch into `dev` and `release` into `master` through the creation of pull requests that will be automatically merged, if possible and enabled.  
 Those pull requests will be identified by a label named `gitflow` as default.
 
 ## Setting up
