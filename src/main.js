@@ -29,15 +29,21 @@ function getTarget(head) {
 }
 
 async function run() {
-    core.debug(JSON.stringify(context.payload));
-    switch (github.context.eventName) {
-        case "push":
-            await push();
-            break;
+    try {
+        core.debug(JSON.stringify(context.payload));
+        switch (github.context.eventName) {
+            case "push":
+                await push();
+                break;
 
-        case "pull_request":
-            await pr();
-            break;
+            case "pull_request":
+                await pr();
+                break;
+        }
+    }
+    catch (err) {
+        //Even if it's a valid situation, we want to fail the action in order to be able to find the issue and fix it.
+        core.setFailed(err.message);
     }
 }
 
