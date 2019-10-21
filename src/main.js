@@ -38,6 +38,7 @@ async function run() {
                 break;
 
             case "pull_request_review":
+            case "check_run":
                 await pr();
                 break;
         }
