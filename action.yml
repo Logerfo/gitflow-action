@@ -21,7 +21,7 @@ inputs:
     default: master
   label:
     description: The pull request label
-    default: workflow
+    default: gitflow
 
 runs:
   using: 'node12'
