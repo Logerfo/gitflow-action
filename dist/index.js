@@ -491,6 +491,7 @@ async function push() {
     }
     const pulls = await client.pulls.list({
         base,
+        head: `${owner}:${head}`,
         owner,
         repo,
         state: "open",
