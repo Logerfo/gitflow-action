@@ -54,12 +54,14 @@ async function run() {
             case "check_run":
                 if (auto_merge) {
                     context.payload.check_run.pull_requests.forEach(async function (element) {
-                        const pull = await client.pulls.get({
+                        const pullResponse = await client.pulls.get({
                             owner,
                             pull_number: element.number,
                             repo,
-                        })
-                        if (pull.data.labels.map(labelMap).includes(label)) {
+                        }),
+                            data = pullResponse.data;
+                        core.debug(JSON.stringify(data));
+                        if (data.labels.map(labelMap).includes(label)) {
                             await merge(element.number);
                         }
                         else {
