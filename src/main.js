@@ -127,7 +127,7 @@ async function push() {
             issue_number: pull_number,
             labels: [label],
             owner,
-            repo
+            repo,
         });
         core.info(`Label ${label} added to #${pull_number}.`);
         core.debug(JSON.stringify(labelsResponse.data));
