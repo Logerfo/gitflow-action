@@ -38,13 +38,38 @@ async function run() {
                 break;
 
             case "pull_request_review":
-                await pr(context.payload.pull_request.number);
+                if (auto_merge) {
+                    if (context.payload.pull_request.labels.map(labelMap).includes(label)) {
+                        await merge(context.payload.pull_request.number);
+                    }
+                    else {
+                        core.info(`Pull request does not have the label ${label}. Skipping...`);
+                    }
+                }
+                else {
+                    core.info("Auto merge is disabled. You should remove the `pull_request_review` event from the action configuration. Skipping...");
+                }
                 break;
 
             case "check_run":
-                context.payload.check_run.pull_requests.forEach(async function(element) {
-                    await pr(element.number);
-                });
+                if (auto_merge) {
+                    context.payload.check_run.pull_requests.forEach(async function (element) {
+                        const pull = await client.pulls.get({
+                            number: element.number,
+                            owner,
+                            repo,
+                        })
+                        if (pull.data.labels.map(labelMap).includes(label)) {
+                            await merge(element.number);
+                        }
+                        else {
+                            core.info(`Pull request #${element.number} does not have the label ${label}. Skipping...`);
+                        }
+                    });
+                }
+                else {
+                    core.info("Auto merge is disabled. You should remove the `check_run` event from the action configuration. Skipping...");
+                }
                 break;
         }
     }
@@ -103,33 +128,27 @@ async function push() {
         core.info(`Label ${label} added to #${pull_number}.`);
         core.debug(JSON.stringify(labelsResponse.data));
     }
-    await merge(pull_number);
-}
-
-async function pr(pull_number) {
-    if (auto_merge && context.payload.pull_request.labels.map(labelMap).includes(label)) {
+    if (auto_merge) {
         await merge(pull_number);
+    }
+    else {
+        core.info("Auto merge is disabled. Skipping...");
     }
 }
 
 async function merge(pull_number) {
-    if (auto_merge) {
-        try {
-            const mergeResponse = await client.pulls.merge({
-                owner,
-                pull_number,
-                repo,
-            });
-            core.info(`Pull request #${pull_number} merged.`);
-            core.debug(JSON.stringify(mergeResponse.data));
-        }
-        catch (err) {
-            core.info("Merge failed.");
-            core.debug(err);
-        }
+    try {
+        const mergeResponse = await client.pulls.merge({
+            owner,
+            pull_number,
+            repo,
+        });
+        core.info(`Pull request #${pull_number} merged.`);
+        core.debug(JSON.stringify(mergeResponse.data));
     }
-    else {
-        core.info("Auto merge is disabled.");
+    catch (err) {
+        core.info("Merge failed.");
+        core.debug(err);
     }
 }
 
