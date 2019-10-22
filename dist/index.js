@@ -451,12 +451,14 @@ async function run() {
             case "check_run":
                 if (auto_merge) {
                     context.payload.check_run.pull_requests.forEach(async function (element) {
-                        const pull = await client.pulls.get({
-                            number: element.number,
+                        const pullResponse = await client.pulls.get({
                             owner,
+                            pull_number: element.number,
                             repo,
-                        })
-                        if (pull.data.labels.map(labelMap).includes(label)) {
+                        }),
+                            data = pullResponse.data;
+                        core.debug(JSON.stringify(data));
+                        if (data.labels.map(labelMap).includes(label)) {
                             await merge(element.number);
                         }
                         else {
@@ -493,11 +495,12 @@ async function push() {
         repo,
         state: "open",
     });
+    core.debug(pulls.data);
     let pull_number;
     if (pulls.data.length == 1) {
         const data = pulls.data[0];
         pull_number = data.number;
-        core.info(`Pull request already exists: #${pull_number}`);
+        core.info(`Pull request already exists: #${pull_number}.`);
         const labels = data.labels.map(labelMap);
         if (!labels.includes(label)) {
             core.info(`Pull request does not have the label ${label}. Skipping...`);
