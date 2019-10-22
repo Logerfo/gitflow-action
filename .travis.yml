@@ -1,0 +1,17 @@
+sudo: false
+language: node_js
+node_js:
+  - "12"
+install:
+  - npm install
+cache:
+  directories:
+    - "node_modules"
+    - "dist"
+script: 'true'
+notifications:
+  email:
+    recipients:
+      - bruno@logerfo.tk
+    on_success: never # default: change
+    on_failure: always

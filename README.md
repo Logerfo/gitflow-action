@@ -12,10 +12,10 @@ Create a file named `.github/workflows/gitflow.yml`.
 name: Gitflow
 on: 
   # To create pull requests.
-  - push 
+  push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
-  - pull_request_review
-  - check_run
+  pull_request_review:
+  check_run:
     types: [completed]
     
 jobs:
@@ -25,7 +25,7 @@ jobs:
     steps:
     - uses: Logerfo/gitflow-action@0.0.1
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+        github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
 ```
 
 ### Disabled auto merge
@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: Logerfo/gitflow-action@0.0.1
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+        github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         auto-merge: false # If `true`, will try to automatically merge the pull requests.
 ```
 
@@ -52,10 +52,10 @@ All values are default.
 name: Gitflow
 on: 
   # To create pull requests.
-  - push 
+  push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
-  - pull_request_review
-  - check_run
+  pull_request_review:
+  check_run:
     types: [completed]
 
 jobs:
@@ -65,7 +65,7 @@ jobs:
     steps:
     - uses: Logerfo/gitflow-action@0.0.1
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}" # The `GITHUB_TOKEN` secret.
+        github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         release: release # The `release` branch.
         dev: dev # The `dev` branch.
         master: master # The `master` branch.
@@ -74,7 +74,8 @@ jobs:
 ```
 
 ### Auto update
-You can use (at your own risk) the `release` branch instead of the specific version tag.
+You can use (at your own risk) the `release` branch instead of the specific version tag.  
+Never user `master`, since the distribution file does not exist in this branch and the action will always fail.
 
 ## Changelog
 Click [here](CHANGELOG.md).
