@@ -55,8 +55,8 @@ async function run() {
                 if (auto_merge) {
                     context.payload.check_run.pull_requests.forEach(async function (element) {
                         const pull = await client.pulls.get({
-                            number: element.number,
                             owner,
+                            pull_number: element.number,
                             repo,
                         })
                         if (pull.data.labels.map(labelMap).includes(label)) {
