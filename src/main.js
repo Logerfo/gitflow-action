@@ -53,7 +53,7 @@ async function run() {
 
             case "check_run":
                 if (auto_merge) {
-                    context.payload.check_run.pull_requests.forEach(async function (element) {
+                    for (const element of context.payload.check_run.pull_requests) {
                         const pullResponse = await client.pulls.get({
                             owner,
                             pull_number: element.number,
@@ -67,7 +67,7 @@ async function run() {
                         else {
                             core.info(`Pull request #${element.number} does not have the label ${label}. Skipping...`);
                         }
-                    });
+                    }
                 }
                 else {
                     core.info("Auto merge is disabled. You should remove the `check_run` event from the action configuration. Skipping...");
@@ -78,6 +78,7 @@ async function run() {
     catch (err) {
         //Even if it's a valid situation, we want to fail the action in order to be able to find the issue and fix it.
         core.setFailed(err.message);
+        core.debug(JSON.stringify(err));
     }
 }
 
@@ -99,7 +100,7 @@ async function push() {
         repo,
         state: "open",
     });
-    core.debug(pulls.data);
+    core.debug(JSON.stringify(pulls.data));
     let pull_number;
     if (pulls.data.length == 1) {
         const data = pulls.data[0];
@@ -127,7 +128,7 @@ async function push() {
             issue_number: pull_number,
             labels: [label],
             owner,
-            repo
+            repo,
         });
         core.info(`Label ${label} added to #${pull_number}.`);
         core.debug(JSON.stringify(labelsResponse.data));
