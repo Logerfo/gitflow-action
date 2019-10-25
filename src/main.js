@@ -53,7 +53,7 @@ async function run() {
 
             case "check_run":
                 if (auto_merge) {
-                    context.payload.check_run.pull_requests.forEach(async function (element) {
+                    for (const element of context.payload.check_run.pull_requests) {
                         const pullResponse = await client.pulls.get({
                             owner,
                             pull_number: element.number,
@@ -67,7 +67,7 @@ async function run() {
                         else {
                             core.info(`Pull request #${element.number} does not have the label ${label}. Skipping...`);
                         }
-                    });
+                    }
                 }
                 else {
                     core.info("Auto merge is disabled. You should remove the `check_run` event from the action configuration. Skipping...");
