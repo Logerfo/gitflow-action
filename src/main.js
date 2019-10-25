@@ -78,6 +78,7 @@ async function run() {
     catch (err) {
         //Even if it's a valid situation, we want to fail the action in order to be able to find the issue and fix it.
         core.setFailed(err.message);
+        core.debug(JSON.stringify(err));
     }
 }
 
