@@ -99,7 +99,7 @@ async function push() {
         repo,
         state: "open",
     });
-    core.debug(pulls.data);
+    core.debug(JSON.stringify(pulls.data));
     let pull_number;
     if (pulls.data.length == 1) {
         const data = pulls.data[0];
