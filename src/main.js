@@ -133,6 +133,7 @@ async function push() {
         core.info(`Label ${label} added to #${pull_number}.`);
         core.debug(JSON.stringify(labelsResponse.data));
     }
+    core.setOutput("pull-request", pull_number.toString());
     if (auto_merge) {
         await merge(pull_number);
     }

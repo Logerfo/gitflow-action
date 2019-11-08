@@ -73,6 +73,10 @@ jobs:
         auto-merge: true # If `true`, will try to automatically merge the pull requests.
 ```
 
+### Output
+When triggered by a push event, the pull request number which is created or found to
+already exist is stored in the `pull-request` output variable.
+
 ### Auto update
 You can use (at your own risk) the `release` branch instead of the specific version tag.  
 Never user `master`, since the distribution file does not exist in this branch and the action will always fail.
