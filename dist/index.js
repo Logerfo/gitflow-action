@@ -395,15 +395,16 @@ module.exports._enoent = enoent;
 /***/ 31:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const core = __webpack_require__(470);
-const github = __webpack_require__(469);
+const core = __webpack_require__(470),
+    github = __webpack_require__(469);
 
 const token = core.getInput("github-token", { required: true }),
     releaseBranch = getBranch("release"),
     devBranch = getBranch("dev"),
     masterBranch = getBranch("master"),
     label = getInput("label", "gitflow"),
-    auto_merge = getInput("auto-merge", "true") == "true",
+    auto_merge = getInput("auto-merge", "true"),
+    require_merge = getInput("require-merge", "false") == "true",
     context = github.context,
     owner = context.repo.owner,
     repo = context.repo.repo,
@@ -426,6 +427,16 @@ function getTarget(head) {
     }
 }
 
+function isAutoMergeEvent(eventName) {
+    if (auto_merge == "true") {
+        return true;
+    }
+    else {
+        const auto_merge_events = auto_merge.split(",").map(e => e.trim());
+        return auto_merge_events.includes(eventName);
+    }
+}
+
 async function run() {
     try {
         core.debug(JSON.stringify(context.payload));
@@ -435,7 +446,7 @@ async function run() {
                 break;
 
             case "pull_request_review":
-                if (auto_merge) {
+                if (isAutoMergeEvent("pull_request_review")) {
                     if (context.payload.pull_request.labels.map(labelMap).includes(label)) {
                         await merge(context.payload.pull_request.number);
                     }
@@ -444,13 +455,18 @@ async function run() {
                     }
                 }
                 else {
-                    core.info("Auto merge is disabled. You should remove the `pull_request_review` event from the action configuration. Skipping...");
+                    core.info("Auto merge is disabled for pull-request reviews. You should remove the `pull_request_review` event from the action configuration. Skipping...");
                 }
                 break;
 
             case "check_run":
-                if (auto_merge) {
-                    for (const element of context.payload.check_run.pull_requests) {
+                if (isAutoMergeEvent("check_run")) {
+                    var prs = context.payload.check_run.pull_requests;
+                    if (!prs) {
+                        core.info("Empty pull request list. Stepping out...");
+                        return;
+                    }
+                    for (const element of prs) {
                         const pullResponse = await client.pulls.get({
                             owner,
                             pull_number: element.number,
@@ -467,7 +483,7 @@ async function run() {
                     }
                 }
                 else {
-                    core.info("Auto merge is disabled. You should remove the `check_run` event from the action configuration. Skipping...");
+                    core.info("Auto merge is disabled for check runs. You should remove the `check_run` event from the action configuration. Skipping...");
                 }
                 break;
         }
@@ -530,11 +546,11 @@ async function push() {
         core.info(`Label ${label} added to #${pull_number}.`);
         core.debug(JSON.stringify(labelsResponse.data));
     }
-    if (auto_merge) {
+    if (isAutoMergeEvent("push")) {
         await merge(pull_number);
     }
     else {
-        core.info("Auto merge is disabled. Skipping...");
+        core.info("Auto merge is disabled for pushes. Skipping...");
     }
 }
 
@@ -549,7 +565,11 @@ async function merge(pull_number) {
         core.debug(JSON.stringify(mergeResponse.data));
     }
     catch (err) {
-        core.info("Merge failed.");
+        if (require_merge) {
+            core.setFailed("Merge failed.");
+        } else {
+            core.info("Merge failed.");
+        }
         core.debug(err);
     }
 }
