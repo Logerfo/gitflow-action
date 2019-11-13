@@ -35,7 +35,7 @@ function isAutoMergeEvent(eventName) {
         return true;
     }
     else {
-        const auto_merge_events = auto_merge.split(",");
+        const auto_merge_events = auto_merge.split(",").map(e => e.trim());
         return auto_merge_events.includes(eventName);
     }
 }
@@ -163,11 +163,12 @@ async function merge(pull_number) {
         core.debug(JSON.stringify(mergeResponse.data));
     }
     catch (err) {
-        core.info("Merge failed.");
-        core.debug(err);
         if (require_merge) {
             core.setFailed("Merge failed.");
+        } else {
+            core.info("Merge failed.");
         }
+        core.debug(err);
     }
 }
 
