@@ -64,7 +64,12 @@ async function run() {
 
             case "check_run":
                 if (isAutoMergeEvent("check_run")) {
-                    for (const element of context.payload.check_run.pull_requests) {
+                    var prs = context.payload.check_run.pull_requests;
+                    if (!prs) {
+                        core.info("Empty pull request list. Stepping out...");
+                        return;
+                    }
+                    for (const element of prs) {
                         const pullResponse = await client.pulls.get({
                             owner,
                             pull_number: element.number,
