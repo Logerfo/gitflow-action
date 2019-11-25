@@ -29,7 +29,7 @@
     "@actions/github": "1.1.0"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "@zeit/ncc": "0.20.5"
   }
 }
