@@ -15,7 +15,7 @@ on:
   push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
   pull_request_review:
-  check_run:
+  check_suite:
     types: [completed]
     
 jobs:
@@ -23,7 +23,7 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@1.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
 ```
@@ -40,7 +40,7 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@1.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         auto-merge: false # If `true`, will try to automatically merge the pull requests.
@@ -55,7 +55,7 @@ on:
   push:
   # To merge pull requests if not possible during the push run. Remove if `auto-merge` is `false`.
   pull_request_review:
-  check_run:
+  check_suite:
     types: [completed]
 
 jobs:
@@ -63,14 +63,14 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@1.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         release: release # The `release` branch.
         dev: dev # The `dev` branch.
         master: master # The `master` branch.
         label: gitflow # The pull request label.
-        auto-merge: true # If `true`, will try to automatically merge pull requests. Can also be set to `pull_request_review`, `check_run`, `push`, or a comma-separated combination of these values to only merge when handling the named events.
+        auto-merge: true # If `true`, will try to automatically merge pull requests. Can also be set to `pull_request_review`, `check_suite`, `push`, or a comma-separated combination of these values to only merge when handling the named events.
         require-merge: false # If an attempted merge fails, the action is considered to have failed.
 ```
 

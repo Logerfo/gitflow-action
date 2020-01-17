@@ -23,7 +23,7 @@ inputs:
     description: The pull request label.
     default: gitflow
   auto-merge:
-    description: If `true`, will try to automatically merge pull requests. Can also be set to `pull_request_review`, `check_run`, `push`, or a comma-separated combination of these values to only merge when handling the named events.
+    description: If `true`, will try to automatically merge pull requests. Can also be set to `pull_request_review`, `check_suite`, `push`, or a comma-separated combination of these values to only merge when handling the named events.
     default: true
   require-merge:
     description: If an attempted merge fails, the action is considered to have failed.

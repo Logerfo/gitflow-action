@@ -1,3 +1,6 @@
+## 1.0.0 - 2020-XX-XX
+- [BREAKING] Replaced `check_run` by `check_suite`.
+
 ## 0.0.4 - 2019-11-13
 - `auto-merge` input now also accepts comma separated events:
   - `pull_request_review`;

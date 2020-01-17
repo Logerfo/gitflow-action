@@ -62,9 +62,9 @@ async function run() {
                 }
                 break;
 
-            case "check_run":
-                if (isAutoMergeEvent("check_run")) {
-                    var prs = context.payload.check_run.pull_requests;
+            case "check_suite":
+                if (isAutoMergeEvent("check_suite")) {
+                    var prs = context.payload.check_suite.pull_requests;
                     if (!prs) {
                         core.info("Empty pull request list. Stepping out...");
                         return;
@@ -86,7 +86,7 @@ async function run() {
                     }
                 }
                 else {
-                    core.info("Auto merge is disabled for check runs. You should remove the `check_run` event from the action configuration. Skipping...");
+                    core.info("Auto merge is disabled for check runs. You should remove the `check_suite` event from the action configuration. Skipping...");
                 }
                 break;
         }
