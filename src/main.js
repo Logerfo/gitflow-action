@@ -24,12 +24,10 @@ function getBranch(name) {
 
 function getTarget(head) {
 
-    if (releaseBranch) {
-      const releaseBranchRegex = new RegExp(releaseBranch)
-      if (head.match(releaseBranchRegex)) return masterBranch
-    } else if (masterBranch) {
-      const masterBranchRegex = new RegExp(masterBranch)
-      if (head.match(masterBranchRegex)) return devBranch
+    if (releaseBranch && head.match(new RegExp(releaseBranch))) {
+      return masterBranch
+    } else if (masterBranch && head.match(new RegExp(masterBranch))) {
+      return devBranch
     }
 
     return null
