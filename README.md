@@ -66,7 +66,7 @@ jobs:
     - uses: Logerfo/gitflow-action@0.0.4
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
-        release: release # The `release` branch.
+        release: release # The `release` branch. or regex  '^release\/.+'
         dev: dev # The `dev` branch.
         master: master # The `master` branch.
         label: gitflow # The pull request label.

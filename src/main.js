@@ -23,11 +23,14 @@ function getBranch(name) {
 }
 
 function getTarget(head) {
-    switch (head) {
-        case releaseBranch: return masterBranch;
-        case masterBranch: return devBranch;
-        default: return null;
+
+    if (releaseBranch && head.match(new RegExp(releaseBranch))) {
+      return masterBranch
+    } else if (masterBranch && head.match(new RegExp(masterBranch))) {
+      return devBranch
     }
+
+    return null
 }
 
 function isAutoMergeEvent(eventName) {
