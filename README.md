@@ -67,6 +67,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         release: release # The `release` branch.
+        release-regex: ^release/(.*) # The regex for `release` branch.
         dev: dev # The `dev` branch.
         master: master # The `master` branch.
         label: gitflow # The pull request label.
