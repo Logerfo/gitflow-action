@@ -13,6 +13,9 @@ inputs:
   release:
     description: The `release` branch.
     default: release
+  release-regex:
+    description: The `release` branch regex.
+    default: null
   dev:
     description: The `dev` branch.
     default: dev
