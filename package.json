@@ -1,6 +1,6 @@
 {
   "name": "gitflow-action",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "description": "A GitHub Action that automatically creates and merges pull requests from master to dev and from release to master.",
   "keywords": [
@@ -25,11 +25,11 @@
     "lint": "eslint src/main.js"
   },
   "dependencies": {
-    "@actions/core": "1.2.0",
-    "@actions/github": "1.1.0"
+    "@actions/core": "1.2.7",
+    "@actions/github": "3.0.0"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
-    "@zeit/ncc": "0.20.5"
+    "eslint": "7.9.0",
+    "@zeit/ncc": "0.22.3"
   }
 }

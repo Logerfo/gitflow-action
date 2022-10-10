@@ -1,3 +1,10 @@
+## 0.0.5 - 2022-08-29
+- New input: `release-regex`.
+  - Default value: `null`.
+  - If not null, allow multiple branches to match the input pattern.
+  - Matched branches are considered to be release branches.
+  - Can be assigned simultaneously with the `release` literal input.
+
 ## 0.0.4 - 2019-11-13
 - `auto-merge` input now also accepts comma separated events:
   - `pull_request_review`;

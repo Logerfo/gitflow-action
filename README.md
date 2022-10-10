@@ -23,7 +23,7 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@0.0.5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
 ```
@@ -40,7 +40,7 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@0.0.5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         auto-merge: false # If `true`, will try to automatically merge the pull requests.
@@ -63,10 +63,11 @@ jobs:
     name: Gitflow
     runs-on: ubuntu-16.04
     steps:
-    - uses: Logerfo/gitflow-action@0.0.4
+    - uses: Logerfo/gitflow-action@0.0.5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # The `GITHUB_TOKEN` secret.
         release: release # The `release` branch.
+        release-regex: ^release/(.*) # The regex for `release` branch.
         dev: dev # The `dev` branch.
         master: master # The `master` branch.
         label: gitflow # The pull request label.

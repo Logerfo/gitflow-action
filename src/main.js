@@ -3,6 +3,7 @@ const core = require("@actions/core"),
 
 const token = core.getInput("github-token", { required: true }),
     releaseBranch = getBranch("release"),
+    releaseBranchRegex = RegExp(getInput("release-regex", null)),
     devBranch = getBranch("dev"),
     masterBranch = getBranch("master"),
     label = getInput("label", "gitflow"),
@@ -26,7 +27,11 @@ function getTarget(head) {
     switch (head) {
         case releaseBranch: return masterBranch;
         case masterBranch: return devBranch;
-        default: return null;
+        default:
+            if (releaseBranchRegex && releaseBranchRegex.test(head)) {
+                return masterBranch;
+            }
+            return null;
     }
 }
 
