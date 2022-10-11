@@ -12,7 +12,7 @@ const token = core.getInput("github-token", { required: true }),
     context = github.context,
     owner = context.repo.owner,
     repo = context.repo.repo,
-    client = new github.GitHub(token);
+    client = new github.getOctokit(token);
 
 function getInput(name, fallback) {
     const input = core.getInput(name);
