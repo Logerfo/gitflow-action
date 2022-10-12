@@ -17,7 +17,11 @@ on:
   pull_request_review:
   check_run:
     types: [completed]
-    
+
+permissions:
+  contents: read
+  pull-requests: write
+  
 jobs:
   build:
     name: Gitflow
@@ -35,6 +39,10 @@ on:
   # To create pull requests.
   - push 
 
+permissions:
+  contents: read
+  pull-requests: write
+  
 jobs:
   build:
     name: Gitflow
@@ -58,6 +66,10 @@ on:
   check_run:
     types: [completed]
 
+permissions:
+  contents: read
+  pull-requests: write
+  
 jobs:
   build:
     name: Gitflow
