@@ -12,6 +12,6 @@ script: 'true'
 notifications:
   email:
     recipients:
-      - bruno@logerfo.tk
+      - bruno@logerfo.com.br
     on_success: never # default: change
     on_failure: always
